@@ -91,6 +91,7 @@ export var tns = function(options) {
     autoHeight: false,
     responsive: false,
     lazyload: false,
+    preloadSpan: 0,
     touch: true,
     mouseDrag: false,
     swipeAngle: 15,
@@ -279,6 +280,7 @@ export var tns = function(options) {
       autoplayResetOnVisibility = getOption('autoplayResetOnVisibility'),
       sheet = createStyleSheet(),
       lazyload = options.lazyload,
+      preloadSpan = getOption('preloadSpan'),
       slidePositions, // collection of slide positions
       slideItemsOut = [],
       cloneCount = loop ? getCloneCountForLoop() : 0,
@@ -1604,7 +1606,7 @@ export var tns = function(options) {
       var i = index, len;
 
       if (!autoWidth) {
-        len = index + items;
+        len = index + items + preloadSpan;
       } else {
         var a = index + 1,
             len = a,
