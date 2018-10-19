@@ -1630,17 +1630,28 @@ export var tns = function(options) {
           addEvents(img, eve);
 
           if (!hasClass(img, 'loading') && !hasClass(img, 'loaded')) {
+            img.onload = function() {
+              addClass(img, 'loaded');
+              removeClass(img, 'loading');
+            }
+            
+            img.onerror = function() {
+              addClass(img, 'failed');
+              removeClass(img, 'loading');
+            }
+
             // update srcset
             var srcset = getAttr(img, 'data-srcset');
             if (srcset) { img.srcset = srcset; }
 
             // update src
-            img.onload = function() {
-              addClass(img, 'loaded');
-              removeClass(img, 'loading');
-            }
             img.src = getAttr(img, 'data-src');
+
             addClass(img, 'loading');
+
+            if (img.complete) {
+              img.onload();
+            }
           }
         });
       }
