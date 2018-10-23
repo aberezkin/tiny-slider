@@ -485,7 +485,7 @@ export var tns = function(options) {
   function getCloneCountForLoop () {
     var itemsMax = getItemsMax(),
         result = carousel ? Math.ceil((itemsMax * 5 - slideCount)/2) : (itemsMax * 4 - slideCount);
-    result = Math.max(itemsMax, result);
+    result = fixedWidth * itemsMax / viewport > 2 ? itemsMax : Math.max(itemsMax, result);
 
     return hasOption('edgePadding') ? result + 1 : result;
   }
